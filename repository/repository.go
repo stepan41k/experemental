@@ -1,0 +1,29 @@
+package repository
+
+import "context"
+
+type Order struct {
+	ID           string `json:"id,omitempty"`
+	CustomerID   string `json:"customer_id"`
+	Status       string `json:"status"`
+	CreatedON    int64 `json:"created_on,omitempty"`
+	RestarauntID string `json:"restaraunt_id"`
+	OrderItems   []OrderItem `json:"order_items,omitempty"`
+}
+
+type OrderItem struct {
+	ProductCode string `json:"product_code"`
+	Name        string `json:"name"`
+	UnitPrice   float32 `json:"unit_price"`
+	Quantity    int32 `json:"quantity"`
+}
+
+type Service interface {
+	Create(ctx context.Context, order Order) (string, error)
+	GetByID(ctx context.Context, id string) (Order, error)
+	ChangeStatus(ctx context.Context, id string, status string) error
+}
+
+
+
+
